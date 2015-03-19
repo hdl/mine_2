@@ -15,11 +15,11 @@ typedef struct{
 
 
 char * init_board(int , int , char);
-void place_mine(board_t *board);
-void set_hint(board_t board, int i, int j);
-void place_hint(board_t board);
-void print_value(char *board, int num_rows, int num_columns);
-void print_status(board_t board);
+void place_mine(board_t *);
+void set_hint(board_t , int , int );
+void place_hint(board_t );
+void print_value(char *, int , int );
+void print_status(board_t );
 #endif
 
 
