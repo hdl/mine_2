@@ -8,7 +8,7 @@ typedef struct{
     int mine_num;
     char *values;
     char *status;
-    char *visit;
+    char *dfs_flag;
 }board_t;
 
 

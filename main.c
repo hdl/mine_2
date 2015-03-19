@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
 
     board.status = (char *)malloc(sizeof(char) * board.col * board.row);
     memset(board.status, '#', board.col * board.row);
-    board.visit = (char *)malloc(sizeof(char) * board.col * board.row);
-    memset(board.visit, 0, board.col * board.row);
+    board.dfs_flag = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.dfs_flag, 0, board.col * board.row);
     board.values = (char *)malloc(sizeof(char) * board.col * board.row);
     memset(board.values, '0', board.col * board.row);
 
