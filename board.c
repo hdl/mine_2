@@ -31,7 +31,6 @@ void place_mine(board_t *board){
     int random_row=0;
     int random_col=0;
     int counter=0;
-    srand(board->seed);
     for(;;){
         random_row = rand() % board->row;
         random_col = rand() % board->col;

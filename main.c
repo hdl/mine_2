@@ -25,9 +25,9 @@ int main(int argc, char *argv[])
     board.mine_num = atoi(argv[3]);
     left = atoi(argv[3]);
     if(argc == 5)
-        board.seed = atoi(argv[4]);
+        srand(atoi(argv[4]));
     else
-        board.seed = time(NULL); // need change to time
+        srand(time(NULL)); // need change to time
 
 
     board.values = init_board(board.row, board.col, '0');

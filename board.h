@@ -6,7 +6,6 @@ typedef struct{
     int row;
     int col;
     int mine_num;
-    unsigned int seed;
     char *values;
     char *status;
     char *visit;
