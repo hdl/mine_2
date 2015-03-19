@@ -32,9 +32,12 @@ int main(int argc, char *argv[])
         srand(time(NULL));
 
 
-    board.status = init_board(board.row, board.col, '#');
-    board.visit = init_board(board.row, board.col, 0);
-    board.values = init_board(board.row, board.col, '0');
+    board.status = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.status, '#', board.col * board.row);
+    board.visit = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.visit, 0, board.col * board.row);
+    board.values = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.values, '0', board.col * board.row);
 
 
     place_mine(&board);
@@ -62,7 +65,6 @@ int main(int argc, char *argv[])
                 board.status[play_row * board.col + play_col] = '#';
             else
                 continue;
-            //print_board(board, &left);
         }else if(board.status[play_row * board.col + play_col]=='!'){
             printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -72,7 +74,6 @@ int main(int argc, char *argv[])
             }
             else
                 continue;
-            //print_board(board, &left);
         } else{
             printf("Enter Action\n0. Reveal\n1. Question\n2. Mark\n3. Cancel\nAction: ");
             scanf("%d", &action);

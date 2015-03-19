@@ -10,20 +10,6 @@
 
 
 
-/*
-    Board initilization:
-    @ rows: number of row
-    @ cols: number of column
-    @ value: what was put
-
-*/
-    char * init_board(int rows, int cols, char v){
-        char *board = (char *)malloc(sizeof(char) * cols * rows);
-        memset(board, v, cols * rows);
-        return board;
-    }
-
-
 
 /*
     increase one on for hint value if neighbor is mine
