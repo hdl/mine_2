@@ -8,9 +8,9 @@
 /*
     Print board status duing the game, which is shown to the player
 */
-void print_board(board_t board){
+void print_board(board_t board, int *left){
     int i,j;
-    printf("There are %d mines left\n", *board.mine_left);
+    printf("There are %d mines left\n", *left);
     for(i=board.row-1; i>=0; i--){
         printf("%d ", i);
         for(j=0; j<board.col-1; j++){

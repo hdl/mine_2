@@ -37,12 +37,12 @@ void show_result(char *board, int num_rows, int num_columns, int result){
 /*
     Make action on board[action_row, action_col] with a char which is action
 */
-void make_action(board_t board, int action_row, int action_col, char action){
+void make_action(board_t board, int action_row, int action_col, char action, int *left){
     int i,j;
     board.status[action_row * board.col + action_col] = action;
 
     if(action == '!'){
-        (*board.mine_left)--;
+        (*left)--;
     }
     if(action == 'r' && board.values[action_row * board.col + action_col]=='*'){
         show_result(board.values, board.row, board.col, 0);

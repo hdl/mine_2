@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     board.col = atoi(argv[2]);
     board.mine_num = atoi(argv[3]);
     left = atoi(argv[3]);
-    board.mine_left = &left;
     if(argc == 5)
         board.seed = atoi(argv[4]);
     else
@@ -37,7 +36,7 @@ int main(int argc, char *argv[])
 
     place_mine(&board);
     place_hint(board);
-    print_board(board);
+    print_board(board, &left);
 
 
     while(1){
@@ -58,15 +57,15 @@ int main(int argc, char *argv[])
                     printf("This tile is already revealed.\n");
                     continue;
                 }else
-                    make_action(board, action_row, action_col, 'r');
+                    make_action(board, action_row, action_col, 'r', &left);
             }
             else if(action == 1)
-                make_action(board, action_row, action_col, '?');
+                make_action(board, action_row, action_col, '?', &left);
             else if(action == 2)
-                make_action(board, action_row, action_col, '!');
+                make_action(board, action_row, action_col, '!', &left);
             else
                 continue;
-            print_board(board);
+            print_board(board, &left);
         }else if(board.status[action_row * board.col + action_col]=='?'){
             printf("Enter Action\n0. UnQuestion\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -74,7 +73,7 @@ int main(int argc, char *argv[])
                 board.status[action_row * board.col + action_col] = '#';
             else
                 continue;
-            print_board(board);
+            print_board(board, &left);
         }else if(board.status[action_row * board.col + action_col]=='!'){
             printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -84,7 +83,7 @@ int main(int argc, char *argv[])
             }
             else
                 continue;
-            print_board(board);
+            print_board(board, &left);
         }
 
 
