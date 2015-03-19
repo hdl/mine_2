@@ -10,26 +10,24 @@
 */
 void print_board(board_t board){
     int i,j;
-    int num_rows = board.row;
-    int num_columns = board.col;
     printf("There are %d mines left\n", *board.mine_left);
-    for(i=num_rows-1; i>=0; i--){
+    for(i=board.row-1; i>=0; i--){
         printf("%d ", i);
-        for(j=0; j<num_columns-1; j++){
-            if(board.status[i * num_columns + j]=='r') //r means revealed
-                printf("%c ", board.values[i * num_columns + j]);
+        for(j=0; j<board.col-1; j++){
+            if(board.status[i * board.col + j]=='r')
+                printf("%c ", board.values[i * board.col + j]);
             else
-                printf("%c ", board.status[i * num_columns + j]);
+                printf("%c ", board.status[i * board.col + j]);
         }
-        if(board.status[i * num_columns + j]=='r')
-            printf("%c\n", board.values[i * num_columns + j]);
+        if(board.status[i * board.col + j]=='r')
+            printf("%c\n", board.values[i * board.col + j]);
         else
-            printf("%c\n", board.status[i * num_columns + j]);
+            printf("%c\n", board.status[i * board.col + j]);
 
     }
     // last line
     printf("  ");
-    for(i=0; i<num_columns-1; i++)
+    for(i=0; i<board.col-1; i++)
         printf("%d ",i);
     printf("%d\n",i);
 }

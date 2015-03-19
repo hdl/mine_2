@@ -53,7 +53,7 @@ void make_action(board_t board, int action_row, int action_col, char action){
         recsive_reveal(board, action_row, action_col);
     }
 
-    // check
+    // check win or not
     for(i=0; i<board.row; i++)
         for(j=0; j<board.col; j++){
             if(board.values[i*board.col+j] != '*' && board.status[i*board.col+j]!='r'){
@@ -65,6 +65,7 @@ void make_action(board_t board, int action_row, int action_col, char action){
             }
 
         }
+    // if runs here, win!
     show_result(board.values, board.row, board.col, 1);
 
 }
@@ -76,26 +77,20 @@ void make_action(board_t board, int action_row, int action_col, char action){
 */
 void recsive_reveal(board_t board, int action_row, int action_col){
 
-
-    //printf("current: %d, %d\n", action_row, action_col);
     if(action_col<0 || action_row<0 || action_row>=board.row || action_col >= board.col ){ //terminated
-        //printf("return because terminated\n");
         return;
     }
     if( board.status[action_row*board.col +action_col]=='?' || board.status[action_row*board.col +action_col]=='!' ){
-
         board.visit[action_row * board.col + action_col]=1;
         return;
     }
 
     if(board.values[action_row * board.col + action_col]!='0'){  // base
-        //printf("return because base");
         board.status[action_row * board.col + action_col]='r';
         return;
     }
 
     if(board.visit[action_row * board.col + action_col]==1){  // pruning
-        //printf("return because visted\n");
         return;
     }
     if(board.values[action_row * board.col + action_col]=='0'){
