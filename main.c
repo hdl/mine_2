@@ -57,12 +57,12 @@ int main(int argc, char *argv[])
                     printf("This tile is already revealed.\n");
                     continue;
                 }else
-                    make_action(board, action_row, action_col, 'r', &left);
+                    play(board, action_row, action_col, 'r', &left);
             }
             else if(action == 1)
-                make_action(board, action_row, action_col, '?', &left);
+                play(board, action_row, action_col, '?', &left);
             else if(action == 2)
-                make_action(board, action_row, action_col, '!', &left);
+                play(board, action_row, action_col, '!', &left);
             else
                 continue;
             print_board(board, &left);

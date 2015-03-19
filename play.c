@@ -8,7 +8,77 @@
 
 
 /*
-    Print board real vales, the final results
+    dfs to reveal board if 0
+*/
+void dfs(board_t board, int row, int col){
+
+    if(board.visit[row * board.col + col]==1 || col<0 || row<0 || row>=board.row || col >= board.col ){ //terminated
+        return;
+    }
+    if( board.status[row*board.col +col]=='?' || board.status[row*board.col +col]=='!' ){
+        board.visit[row * board.col + col]=1;
+        return;
+    }
+
+    if(board.values[row * board.col + col]!='0'){  // base
+        board.status[row * board.col + col]='r';
+        return;
+    }
+
+    if(board.values[row*board.col + col] == '0'){
+        board.visit[row * board.col + col]=1;
+        board.status[row * board.col + col]='r';
+        dfs(board, row-1, col-1);
+        dfs(board, row-1, col);
+        dfs(board, row-1, col+1);
+        dfs(board, row, col-1);
+        dfs(board, row, col+1);
+        dfs(board, row+1, col-1);
+        dfs(board, row+1, col);
+        dfs(board, row+1, col+1);
+    }
+    return ;
+}
+
+
+/*
+    Make action on board[row, col] with a char which is action
+*/
+void play(board_t board, int row, int col, char action, int *left){
+    int i,j;
+    board.status[row * board.col + col] = action;
+
+    if(action == '!'){
+        (*left)--;
+    }
+    if(action == 'r' && board.values[row * board.col + col]=='*'){
+        show_result(board.values, board.row, board.col, 0);
+    }
+
+    if(action == 'r' && board.values[row * board.col + col]=='0'){
+        dfs(board, row, col);
+    }
+
+    // check win or not
+    for(i=0; i<board.row; i++)
+        for(j=0; j<board.col; j++){
+            if(board.values[i*board.col+j] != '*' && board.status[i*board.col+j]!='r'){
+                return;
+            }
+
+            if(board.values[i*board.col+j] == '*' && board.status[i*board.col+j]!='!'){
+                return;
+            }
+
+        }
+    // if runs here, win!
+    show_result(board.values, board.row, board.col, 1);
+
+}
+
+
+/*
+    show final result and board after reveal
 */
 void show_result(char *board, int num_rows, int num_columns, int result){
     int i,j;
@@ -34,76 +104,4 @@ void show_result(char *board, int num_rows, int num_columns, int result){
 }
 
 
-/*
-    Make action on board[row, col] with a char which is action
-*/
-void make_action(board_t board, int row, int col, char action, int *left){
-    int i,j;
-    board.status[row * board.col + col] = action;
 
-    if(action == '!'){
-        (*left)--;
-    }
-    if(action == 'r' && board.values[row * board.col + col]=='*'){
-        show_result(board.values, board.row, board.col, 0);
-    }
-
-    if(action == 'r' && board.values[row * board.col + col]=='0'){
-        //printf("here?\n");
-        dfs(board, row, col);
-    }
-
-    // check win or not
-    for(i=0; i<board.row; i++)
-        for(j=0; j<board.col; j++){
-            if(board.values[i*board.col+j] != '*' && board.status[i*board.col+j]!='r'){
-                return;
-            }
-
-            if(board.values[i*board.col+j] == '*' && board.status[i*board.col+j]!='!'){
-                return;
-            }
-
-        }
-    // if runs here, win!
-    show_result(board.values, board.row, board.col, 1);
-
-}
-
-
-
-/*
-    This is a recusive funtion, in case of a area of 0 is triggered
-*/
-void dfs(board_t board, int row, int col){
-
-    if(board.visit[row * board.col + col]==1 || col<0 || row<0 || row>=board.row || col >= board.col ){ //terminated
-        return;
-    }
-    if( board.status[row*board.col +col]=='?' || board.status[row*board.col +col]=='!' ){
-        board.visit[row * board.col + col]=1;
-        return;
-    }
-
-    if(board.values[row * board.col + col]!='0'){  // base
-        board.status[row * board.col + col]='r';
-        return;
-    }
-
-    if(board.values[row * board.col + col]=='0'){
-        board.visit[row * board.col + col]=1;
-        board.status[row * board.col + col]='r';
-    }
-
-    if(board.values[row*board.col + col] == '0'){
-        dfs(board, row-1, col-1);
-        dfs(board, row-1, col);
-        dfs(board, row-1, col+1);
-        dfs(board, row, col-1);
-        dfs(board, row, col+1);
-        dfs(board, row+1, col-1);
-        dfs(board, row+1, col);
-        dfs(board, row+1, col+1);
-    }
-    return ;
-}
