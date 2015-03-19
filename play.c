@@ -35,22 +35,22 @@ void show_result(char *board, int num_rows, int num_columns, int result){
 
 
 /*
-    Make action on board[action_row, action_col] with a char which is action
+    Make action on board[row, col] with a char which is action
 */
-void make_action(board_t board, int action_row, int action_col, char action, int *left){
+void make_action(board_t board, int row, int col, char action, int *left){
     int i,j;
-    board.status[action_row * board.col + action_col] = action;
+    board.status[row * board.col + col] = action;
 
     if(action == '!'){
         (*left)--;
     }
-    if(action == 'r' && board.values[action_row * board.col + action_col]=='*'){
+    if(action == 'r' && board.values[row * board.col + col]=='*'){
         show_result(board.values, board.row, board.col, 0);
     }
 
-    if(action == 'r' && board.values[action_row * board.col + action_col]=='0'){
+    if(action == 'r' && board.values[row * board.col + col]=='0'){
         //printf("here?\n");
-        recsive_reveal(board, action_row, action_col);
+        dfs(board, row, col);
     }
 
     // check win or not
@@ -75,38 +75,35 @@ void make_action(board_t board, int action_row, int action_col, char action, int
 /*
     This is a recusive funtion, in case of a area of 0 is triggered
 */
-void recsive_reveal(board_t board, int action_row, int action_col){
+void dfs(board_t board, int row, int col){
 
-    if(action_col<0 || action_row<0 || action_row>=board.row || action_col >= board.col ){ //terminated
+    if(board.visit[row * board.col + col]==1 || col<0 || row<0 || row>=board.row || col >= board.col ){ //terminated
         return;
     }
-    if( board.status[action_row*board.col +action_col]=='?' || board.status[action_row*board.col +action_col]=='!' ){
-        board.visit[action_row * board.col + action_col]=1;
-        return;
-    }
-
-    if(board.values[action_row * board.col + action_col]!='0'){  // base
-        board.status[action_row * board.col + action_col]='r';
+    if( board.status[row*board.col +col]=='?' || board.status[row*board.col +col]=='!' ){
+        board.visit[row * board.col + col]=1;
         return;
     }
 
-    if(board.visit[action_row * board.col + action_col]==1){  // pruning
+    if(board.values[row * board.col + col]!='0'){  // base
+        board.status[row * board.col + col]='r';
         return;
     }
-    if(board.values[action_row * board.col + action_col]=='0'){
-        board.visit[action_row * board.col + action_col]=1;
-        board.status[action_row * board.col + action_col]='r';
+
+    if(board.values[row * board.col + col]=='0'){
+        board.visit[row * board.col + col]=1;
+        board.status[row * board.col + col]='r';
     }
 
-    if(board.values[action_row*board.col + action_col] == '0'){
-        recsive_reveal(board, action_row-1, action_col-1);
-        recsive_reveal(board, action_row-1, action_col);
-        recsive_reveal(board, action_row-1, action_col+1);
-        recsive_reveal(board, action_row, action_col-1);
-        recsive_reveal(board, action_row, action_col+1);
-        recsive_reveal(board, action_row+1, action_col-1);
-        recsive_reveal(board, action_row+1, action_col);
-        recsive_reveal(board, action_row+1, action_col+1);
+    if(board.values[row*board.col + col] == '0'){
+        dfs(board, row-1, col-1);
+        dfs(board, row-1, col);
+        dfs(board, row-1, col+1);
+        dfs(board, row, col-1);
+        dfs(board, row, col+1);
+        dfs(board, row+1, col-1);
+        dfs(board, row+1, col);
+        dfs(board, row+1, col+1);
     }
     return ;
 }
