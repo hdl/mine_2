@@ -25,7 +25,6 @@ void print_board(board_t board, int *left){
             printf("%c\n", board.status[i * board.col + j]);
 
     }
-    // last line
     printf("  ");
     for(i=0; i<board.col-1; i++)
         printf("%d ",i);
