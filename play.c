@@ -42,7 +42,7 @@ void dfs(board_t board, int row, int col){
 
 
 /*
-    Make action on board[row, col] with a char which is action
+    play on board[row, col] with a action, alst decrese left if necessary
 */
 void play(board_t board, int row, int col, char action, int *left){
     int i,j;
@@ -81,7 +81,7 @@ void play(board_t board, int row, int col, char action, int *left){
 
 
 /*
-    show final result and board after reveal
+    show result for win or lost
 */
 void show_result(char *board, int num_rows, int num_columns, int result){
     int i,j;
