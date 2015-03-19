@@ -12,12 +12,12 @@ void print_board(board_t board, int *left){
         printf("%d ", i);
         for(j=0; j<board.col-1; j++){
             if(board.user_view[i * board.col + j]=='r')
-                printf("%c ", board.values[i * board.col + j]);
+                printf("%c ", board.hint_value[i * board.col + j]);
             else
                 printf("%c ", board.user_view[i * board.col + j]);
         }
         if(board.user_view[i * board.col + j]=='r')
-            printf("%c\n", board.values[i * board.col + j]);
+            printf("%c\n", board.hint_value[i * board.col + j]);
         else
             printf("%c\n", board.user_view[i * board.col + j]);
 

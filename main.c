@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
     memset(board.user_view, '#', board.col * board.row);
     board.dfs_flag = (char *)malloc(sizeof(char) * board.col * board.row);
     memset(board.dfs_flag, 0, board.col * board.row);
-    board.values = (char *)malloc(sizeof(char) * board.col * board.row);
-    memset(board.values, '0', board.col * board.row);
+    board.hint_value = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.hint_value, '0', board.col * board.row);
 
 
     place_mine(&board);

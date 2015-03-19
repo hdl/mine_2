@@ -20,12 +20,12 @@ void dfs(board_t board, int row, int col){
         return;
     }
 
-    if(board.values[row * board.col + col]!='0'){  // base
+    if(board.hint_value[row * board.col + col]!='0'){  // base
         board.user_view[row * board.col + col]='r';
         return;
     }
 
-    if(board.values[row*board.col + col] == '0'){
+    if(board.hint_value[row*board.col + col] == '0'){
         board.dfs_flag[row * board.col + col]=1;
         board.user_view[row * board.col + col]='r';
         dfs(board, row+1, col-1);
@@ -52,12 +52,12 @@ void play(board_t board, int row, int col, char action, int *left){
         (*left)--;
     }
 
-    if(action == 'r' && board.values[row * board.col + col]=='0'){
+    if(action == 'r' && board.hint_value[row * board.col + col]=='0'){
         dfs(board, row, col);
     }
 
-    if(action == 'r' && board.values[row * board.col + col]=='*'){
-        show_result(board.values, board.row, board.col, 0);
+    if(action == 'r' && board.hint_value[row * board.col + col]=='*'){
+        show_result(board.hint_value, board.row, board.col, 0);
     }
 
 
@@ -65,17 +65,17 @@ void play(board_t board, int row, int col, char action, int *left){
     // check win or not
     for(i=0; i<board.row; i++)
         for(j=0; j<board.col; j++){
-            if(board.values[i*board.col+j] != '*' && board.user_view[i*board.col+j]!='r'){
+            if(board.hint_value[i*board.col+j] != '*' && board.user_view[i*board.col+j]!='r'){
                 return;
             }
 
-            if(board.values[i*board.col+j] == '*' && board.user_view[i*board.col+j]!='!'){
+            if(board.hint_value[i*board.col+j] == '*' && board.user_view[i*board.col+j]!='!'){
                 return;
             }
 
         }
     // if runs here, win!
-    show_result(board.values, board.row, board.col, 1);
+    show_result(board.hint_value, board.row, board.col, 1);
 
 }
 

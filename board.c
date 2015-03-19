@@ -16,8 +16,8 @@
 */
     void increase_board_value(board_t board, int i, int j)
     {
-        if(i>=0 && i< board.row && j>=0 && j<board.col && board.values[i*board.col + j]!='*')
-            board.values[i*board.col + j]++;
+        if(i>=0 && i< board.row && j>=0 && j<board.col && board.hint_value[i*board.col + j]!='*')
+            board.hint_value[i*board.col + j]++;
     }
 
 /*
@@ -27,7 +27,7 @@
         int i, j;
         for(i=0; i<board.row; i++)
             for(j=0; j<board.col; j++){
-                if(board.values[i*board.col + j] == '*'){
+                if(board.hint_value[i*board.col + j] == '*'){
                     increase_board_value(board, i-1, j-1);
                     increase_board_value(board, i-1, j);
                     increase_board_value(board, i-1, j+1);
@@ -53,9 +53,9 @@
             random_row = rand() % board->row;
             random_col = rand() % board->col;
 
-            if(board->values[random_row * board->col + random_col] != '*'){
+            if(board->hint_value[random_row * board->col + random_col] != '*'){
                 printf("Placing mine at %d, %d\n", random_row, random_col);
-                board->values[random_row * board->col + random_col]='*';
+                board->hint_value[random_row * board->col + random_col]='*';
                 counter++;
                 if(counter == board->mine_num)
                     return;

@@ -6,7 +6,7 @@ typedef struct{
     int row;
     int col;
     int mine_num;
-    char *values;
+    char *hint_value;
     char *user_view;
     char *dfs_flag;
 }board_t;
