@@ -28,14 +28,14 @@ void dfs(board_t board, int row, int col){
     if(board.values[row*board.col + col] == '0'){
         board.visit[row * board.col + col]=1;
         board.status[row * board.col + col]='r';
+        dfs(board, row+1, col-1);
+        dfs(board, row+1, col);
+        dfs(board, row+1, col+1);
         dfs(board, row-1, col-1);
         dfs(board, row-1, col);
         dfs(board, row-1, col+1);
         dfs(board, row, col-1);
         dfs(board, row, col+1);
-        dfs(board, row+1, col-1);
-        dfs(board, row+1, col);
-        dfs(board, row+1, col+1);
     }
     return ;
 }

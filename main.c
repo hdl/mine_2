@@ -8,18 +8,20 @@
 int main(int argc, char *argv[])
 {
     board_t board;
-    int action_row=0;
-    int action_col=0;
-    int action;
     int left;
-    if(argc <4){
-        printf("Not enough arguments. Usage:\n./mine_sweeper.out num_rows num_cols num_mines [seed])\n");
-        return 0;
-    }
+    int play_row=0;
+    int play_col=0;
+    int action;
+
     if(argc >6){
         printf("Too many arguments. Usage:\n./mine_sweeper.out num_rows num_cols num_mines [seed])\n");
-        return 0;
+        exit(0);
     }
+    if(argc <4){
+        printf("Not enough arguments. Usage:\n./mine_sweeper.out num_rows num_cols num_mines [seed])\n");
+        exit(0);
+    }
+
     board.row = atoi(argv[1]);
     board.col = atoi(argv[2]);
     board.mine_num = atoi(argv[3]);
@@ -27,60 +29,60 @@ int main(int argc, char *argv[])
     if(argc == 5)
         srand(atoi(argv[4]));
     else
-        srand(time(NULL)); // need change to time
+        srand(time(NULL));
 
 
-    board.values = init_board(board.row, board.col, '0');
     board.status = init_board(board.row, board.col, '#');
     board.visit = init_board(board.row, board.col, 0);
+    board.values = init_board(board.row, board.col, '0');
+
 
     place_mine(&board);
     place_hint(board);
-    print_board(board, &left);
 
+    print_board(board, &left);
 
     while(1){
         printf("Enter row a row between 0-%d and a column between 0-%d: ", board.row-1, board.col-1);
-        scanf("%d %d", &action_row, &action_col);
-        if(action_row<0 || action_row>board.row-1 || action_col<0 || action_col> board.col-1)
+        scanf("%d %d", &play_row, &play_col);
+        if(play_row<0 || play_row>board.row-1 || play_col<0 || play_col> board.col-1)
             continue;
-        if(board.status[action_row * board.col + action_col]=='r'){
+        if(board.status[play_row * board.col + play_col]=='r'){
             printf("This tile is already revealed.\n");
             continue;
-        }
-        if(board.status[action_row * board.col + action_col]!='?' && board.status[action_row * board.col + action_col]!='!'){
+        }else if(board.status[play_row * board.col + play_col]=='?'){
+            printf("Enter Action\n0. UnQuestion\n1. Cancel\nAction: ");
+            scanf("%d", &action);
+            if(action == 0)
+                board.status[play_row * board.col + play_col] = '#';
+            else
+                continue;
+            print_board(board, &left);
+        }else if(board.status[play_row * board.col + play_col]=='!'){
+            printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
+            scanf("%d", &action);
+            if(action == 0){
+                board.status[play_row * board.col + play_col] = '#';
+                left++;
+            }
+            else
+                continue;
+            print_board(board, &left);
+        } else{
             printf("Enter Action\n0. Reveal\n1. Question\n2. Mark\n3. Cancel\nAction: ");
             scanf("%d", &action);
 
             if(action == 0){
-                if(board.status[action_row * board.col + action_col] == 'r'){
+                if(board.status[play_row * board.col + play_col] == 'r'){
                     printf("This tile is already revealed.\n");
                     continue;
                 }else
-                    play(board, action_row, action_col, 'r', &left);
+                    play(board, play_row, play_col, 'r', &left);
             }
             else if(action == 1)
-                play(board, action_row, action_col, '?', &left);
+                play(board, play_row, play_col, '?', &left);
             else if(action == 2)
-                play(board, action_row, action_col, '!', &left);
-            else
-                continue;
-            print_board(board, &left);
-        }else if(board.status[action_row * board.col + action_col]=='?'){
-            printf("Enter Action\n0. UnQuestion\n1. Cancel\nAction: ");
-            scanf("%d", &action);
-            if(action == 0)
-                board.status[action_row * board.col + action_col] = '#';
-            else
-                continue;
-            print_board(board, &left);
-        }else if(board.status[action_row * board.col + action_col]=='!'){
-            printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
-            scanf("%d", &action);
-            if(action == 0){
-                board.status[action_row * board.col + action_col] = '#';
-                left++;
-            }
+                play(board, play_row, play_col, '!', &left);
             else
                 continue;
             print_board(board, &left);

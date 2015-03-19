@@ -24,28 +24,6 @@
     }
 
 
-/*
-    place random mines on board
-*/
-    void place_mine(board_t *board){
-        int random_row=0;
-        int random_col=0;
-        int counter=0;
-        for(;;){
-            random_row = rand() % board->row;
-            random_col = rand() % board->col;
-
-            if(board->values[random_row * board->col + random_col] != '*'){
-                printf("Placing mine at %d, %d\n", random_row, random_col);
-                board->values[random_row * board->col + random_col]='*';
-                counter++;
-                if(counter == board->mine_num)
-                    return;
-            }
-
-        }
-
-    }
 
 /*
     increase one on for hint value if neighbor is mine
@@ -76,6 +54,31 @@
 
             }
         }
+
+
+/*
+    place random mines on board
+*/
+    void place_mine(board_t *board){
+        int random_row=0;
+        int random_col=0;
+        int counter=0;
+        for(;;){
+            random_row = rand() % board->row;
+            random_col = rand() % board->col;
+
+            if(board->values[random_row * board->col + random_col] != '*'){
+                printf("Placing mine at %d, %d\n", random_row, random_col);
+                board->values[random_row * board->col + random_col]='*';
+                counter++;
+                if(counter == board->mine_num)
+                    return;
+            }
+
+        }
+
+    }
+
 
 
 
