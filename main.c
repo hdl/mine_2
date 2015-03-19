@@ -43,10 +43,15 @@ int main(int argc, char *argv[])
     print_board(board, &left);
 
     while(1){
+
         printf("Enter row a row between 0-%d and a column between 0-%d: ", board.row-1, board.col-1);
         scanf("%d %d", &play_row, &play_col);
+
+        // invalid action
         if(play_row<0 || play_row>board.row-1 || play_col<0 || play_col> board.col-1)
             continue;
+
+
         if(board.status[play_row * board.col + play_col]=='r'){
             printf("This tile is already revealed.\n");
             continue;
@@ -57,7 +62,7 @@ int main(int argc, char *argv[])
                 board.status[play_row * board.col + play_col] = '#';
             else
                 continue;
-            print_board(board, &left);
+            //print_board(board, &left);
         }else if(board.status[play_row * board.col + play_col]=='!'){
             printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -67,7 +72,7 @@ int main(int argc, char *argv[])
             }
             else
                 continue;
-            print_board(board, &left);
+            //print_board(board, &left);
         } else{
             printf("Enter Action\n0. Reveal\n1. Question\n2. Mark\n3. Cancel\nAction: ");
             scanf("%d", &action);
@@ -85,9 +90,9 @@ int main(int argc, char *argv[])
                 play(board, play_row, play_col, '!', &left);
             else
                 continue;
-            print_board(board, &left);
-        }
 
+        }
+        print_board(board, &left);
 
     }
 
