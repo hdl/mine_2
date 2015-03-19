@@ -5,9 +5,6 @@
 #include "board.h"
 
 
-/*
-    Print board status duing the game, which is shown to the player
-*/
 void print_board(board_t board, int *left){
     int i,j;
     printf("There are %d mines left\n", *left);
