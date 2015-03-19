@@ -8,8 +8,7 @@
 /*
     Print board real vales, the final results
 */
-void print_value(char *board, int num_rows, int num_columns){
-    //printf("print values\n");
+void show_result(char *board, int num_rows, int num_columns){
     int i,j;
     for(i=num_rows-1; i>=0; i--){
         printf("%d ", i);
@@ -17,7 +16,6 @@ void print_value(char *board, int num_rows, int num_columns){
             printf("%c ", board[i * num_columns + j]);
         printf("%c\n", board[i * num_columns + j]);
     }
-    // last line
     printf("  ");
     for(i=0; i<num_columns-1; i++)
         printf("%d ",i);
@@ -28,7 +26,7 @@ void print_value(char *board, int num_rows, int num_columns){
 /*
     Print board status duing the game, which is shown to the player
 */
-void print_status(board_t board){
+void print_board(board_t board){
     int i,j;
     int num_rows = board.row;
     int num_columns = board.col;

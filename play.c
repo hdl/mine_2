@@ -17,7 +17,7 @@ void make_action(board_t board, int action_row, int action_col, char action){
         (*board.mine_left)--;
     }
     if(action == 'r' && board.values[action_row * board.col + action_col]=='*'){
-        print_value(board.values, board.row, board.col);
+        show_result(board.values, board.row, board.col);
         printf("You Lost :(\n");
         exit(0);
     }
@@ -48,7 +48,7 @@ int win(board_t board, int row, int col){
             }
 
         }
-    print_value(board.values, board.row, board.col);
+    show_result(board.values, board.row, board.col);
     printf("You Won!!\n");
     exit(0);
     return 1;

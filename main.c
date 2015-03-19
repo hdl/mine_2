@@ -31,17 +31,14 @@ int main(int argc, char *argv[])
         board.seed = time(NULL); // need change to time
 
 
-    //printf("row %d, col %d, mine_num %d\n", board.row, board.col, board.mine_num);
-
     board.values = init_board(board.row, board.col, '0');
     board.status = init_board(board.row, board.col, '#');
     board.visit = init_board(board.row, board.col, 0);
 
     place_mine(&board);
     place_hint(board);
-    print_status(board);
+    print_board(board);
 
-    //print_value(board.values, board.row, board.col);
 
     while(1){
         printf("Enter row a row between 0-%d and a column between 0-%d: ", board.row-1, board.col-1);
@@ -69,7 +66,7 @@ int main(int argc, char *argv[])
                 make_action(board, action_row, action_col, '!');
             else
                 continue;
-            print_status(board);
+            print_board(board);
         }else if(board.status[action_row * board.col + action_col]=='?'){
             printf("Enter Action\n0. UnQuestion\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -77,7 +74,7 @@ int main(int argc, char *argv[])
                 board.status[action_row * board.col + action_col] = '#';
             else
                 continue;
-            print_status(board);
+            print_board(board);
         }else if(board.status[action_row * board.col + action_col]=='!'){
             printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
             scanf("%d", &action);
@@ -87,7 +84,7 @@ int main(int argc, char *argv[])
             }
             else
                 continue;
-            print_status(board);
+            print_board(board);
         }
 
 
