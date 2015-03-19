@@ -53,17 +53,10 @@ void place_mine(board_t *board){
 /*
     set_hint is used to place hint number for board[i,j]
 */
-void set_hint(board_t board, int i, int j)
+void increase_board_value(board_t board, int i, int j)
 {
-    if( i<0 || i>=board.row || j<0 || j>=board.col)
-        return;
-    else{
-        if(board.values[i*board.col + j]!='*')
-            board.values[i*board.col + j]++;
-
-    }
-    return;
-
+    if(i>=0 && i< board.row && j>=0 && j<board.col && board.values[i*board.col + j]!='*')
+        board.values[i*board.col + j]++;
 }
 
 /*
@@ -74,14 +67,14 @@ void place_hint(board_t board){
     for(i=0; i<board.row; i++)
         for(j=0; j<board.col; j++){
             if(board.values[i*board.col + j] == '*'){
-                set_hint(board, i-1, j-1);
-                set_hint(board, i-1, j);
-                set_hint(board, i-1, j+1);
-                set_hint(board, i, j-1);
-                set_hint(board, i, j+1);
-                set_hint(board, i+1, j-1);
-                set_hint(board, i+1, j);
-                set_hint(board, i+1, j+1);
+                increase_board_value(board, i-1, j-1);
+                increase_board_value(board, i-1, j);
+                increase_board_value(board, i-1, j+1);
+                increase_board_value(board, i, j-1);
+                increase_board_value(board, i, j+1);
+                increase_board_value(board, i+1, j-1);
+                increase_board_value(board, i+1, j);
+                increase_board_value(board, i+1, j+1);
             }
 
         }

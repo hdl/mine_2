@@ -16,7 +16,7 @@ typedef struct{
 
 char * init_board(int , int , char);
 void place_mine(board_t *);
-void set_hint(board_t , int , int );
+void increase_board_value(board_t , int , int );
 void place_hint(board_t );
 void print_value(char *, int , int );
 void print_status(board_t );
