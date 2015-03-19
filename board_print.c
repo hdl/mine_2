@@ -6,24 +6,6 @@
 
 
 /*
-    Print board real vales, the final results
-*/
-void show_result(char *board, int num_rows, int num_columns){
-    int i,j;
-    for(i=num_rows-1; i>=0; i--){
-        printf("%d ", i);
-        for(j=0; j<num_columns-1; j++)
-            printf("%c ", board[i * num_columns + j]);
-        printf("%c\n", board[i * num_columns + j]);
-    }
-    printf("  ");
-    for(i=0; i<num_columns-1; i++)
-        printf("%d ",i);
-    printf("%d\n",i);
-}
-
-
-/*
     Print board status duing the game, which is shown to the player
 */
 void print_board(board_t board){

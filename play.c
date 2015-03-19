@@ -6,53 +6,69 @@
 #include "board.h"
 #include "play.h"
 
+
+/*
+    Print board real vales, the final results
+*/
+void show_result(char *board, int num_rows, int num_columns, int result){
+    int i,j;
+    for(i=num_rows-1; i>=0; i--){
+        printf("%d ", i);
+        for(j=0; j<num_columns-1; j++)
+            printf("%c ", board[i * num_columns + j]);
+        printf("%c\n", board[i * num_columns + j]);
+    }
+    printf("  ");
+    for(i=0; i<num_columns-1; i++)
+        printf("%d ",i);
+    printf("%d\n",i);
+
+    if(result == 0)
+        printf("You Lost :(\n");
+    else
+        printf("You Won!!\n");
+
+    exit(0);
+
+
+}
+
+
 /*
     Make action on board[action_row, action_col] with a char which is action
 */
 void make_action(board_t board, int action_row, int action_col, char action){
-
+    int i,j;
     board.status[action_row * board.col + action_col] = action;
 
     if(action == '!'){
         (*board.mine_left)--;
     }
     if(action == 'r' && board.values[action_row * board.col + action_col]=='*'){
-        show_result(board.values, board.row, board.col);
-        printf("You Lost :(\n");
-        exit(0);
+        show_result(board.values, board.row, board.col, 0);
     }
 
     if(action == 'r' && board.values[action_row * board.col + action_col]=='0'){
         //printf("here?\n");
         recsive_reveal(board, action_row, action_col);
     }
-    win(board, action_row, action_col);
 
-}
-
-/*
-    To check if we can win the game
-*/
-int win(board_t board, int row, int col){
-    int i,j;
+    // check
     for(i=0; i<board.row; i++)
         for(j=0; j<board.col; j++){
             if(board.values[i*board.col+j] != '*' && board.status[i*board.col+j]!='r'){
-                //printf("return because %d %d", i, j);
-                return 0;
+                return;
             }
 
             if(board.values[i*board.col+j] == '*' && board.status[i*board.col+j]!='!'){
-                //printf("return because %d %d", i, j);
-                return 0;
+                return;
             }
 
         }
-    show_result(board.values, board.row, board.col);
-    printf("You Won!!\n");
-    exit(0);
-    return 1;
+    show_result(board.values, board.row, board.col, 1);
+
 }
+
 
 
 /*

@@ -18,7 +18,6 @@ char * init_board(int , int , char);
 void place_mine(board_t *);
 void increase_board_value(board_t , int , int );
 void place_hint(board_t );
-void show_result(char *, int , int );
 void print_board(board_t );
 #endif
 
