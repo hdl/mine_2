@@ -11,15 +11,15 @@ void print_board(board_t board, int *left){
     for(i=board.row-1; i>=0; i--){
         printf("%d ", i);
         for(j=0; j<board.col-1; j++){
-            if(board.status[i * board.col + j]=='r')
+            if(board.user_view[i * board.col + j]=='r')
                 printf("%c ", board.values[i * board.col + j]);
             else
-                printf("%c ", board.status[i * board.col + j]);
+                printf("%c ", board.user_view[i * board.col + j]);
         }
-        if(board.status[i * board.col + j]=='r')
+        if(board.user_view[i * board.col + j]=='r')
             printf("%c\n", board.values[i * board.col + j]);
         else
-            printf("%c\n", board.status[i * board.col + j]);
+            printf("%c\n", board.user_view[i * board.col + j]);
 
     }
     printf("  ");

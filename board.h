@@ -7,7 +7,7 @@ typedef struct{
     int col;
     int mine_num;
     char *values;
-    char *status;
+    char *user_view;
     char *dfs_flag;
 }board_t;
 

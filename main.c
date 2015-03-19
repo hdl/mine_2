@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
         srand(time(NULL));
 
 
-    board.status = (char *)malloc(sizeof(char) * board.col * board.row);
-    memset(board.status, '#', board.col * board.row);
+    board.user_view = (char *)malloc(sizeof(char) * board.col * board.row);
+    memset(board.user_view, '#', board.col * board.row);
     board.dfs_flag = (char *)malloc(sizeof(char) * board.col * board.row);
     memset(board.dfs_flag, 0, board.col * board.row);
     board.values = (char *)malloc(sizeof(char) * board.col * board.row);
@@ -55,21 +55,21 @@ int main(int argc, char *argv[])
             continue;
 
 
-        if(board.status[play_row * board.col + play_col]=='r'){
+        if(board.user_view[play_row * board.col + play_col]=='r'){
             printf("This tile is already revealed.\n");
             continue;
-        }else if(board.status[play_row * board.col + play_col]=='?'){
+        }else if(board.user_view[play_row * board.col + play_col]=='?'){
             printf("Enter Action\n0. UnQuestion\n1. Cancel\nAction: ");
             scanf("%d", &action);
             if(action == 0)
-                board.status[play_row * board.col + play_col] = '#';
+                board.user_view[play_row * board.col + play_col] = '#';
             else
                 continue;
-        }else if(board.status[play_row * board.col + play_col]=='!'){
+        }else if(board.user_view[play_row * board.col + play_col]=='!'){
             printf("Enter Action\n0. UnMark\n1. Cancel\nAction: ");
             scanf("%d", &action);
             if(action == 0){
-                board.status[play_row * board.col + play_col] = '#';
+                board.user_view[play_row * board.col + play_col] = '#';
                 left++;
             }
             else
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
             scanf("%d", &action);
 
             if(action == 0){
-                if(board.status[play_row * board.col + play_col] == 'r'){
+                if(board.user_view[play_row * board.col + play_col] == 'r'){
                     printf("This tile is already revealed.\n");
                     continue;
                 }else
